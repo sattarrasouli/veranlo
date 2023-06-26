@@ -5,23 +5,44 @@ import * as types from "./types"
  * 
  * @returns data and actions 
  */
-export const SearchBookRequest = (payload: string) => {
+export const TaskListRequest = (payload: string) => {
     return {
-        type: types.SEARCH_BOOK_REQUEST,
+        type: types.TASK_LIST_REQUEST,
         payload
     }
 }
 
-export const SearchBookFailed = (payload: string[]) => {
+export const TaskListFailed = (payload: string[]) => {
     return {
-        type: types.SEARCH_BOOK_FAILED,
+        type: types.TASK_LIST_FAILED,
         payload
     }
 }
 
-export const SearchBookSuccess = (payload: string[]) => {
+export const TaskListSuccess = (payload: string[]) => {
     return {
-        type: types.SEARCH_BOOK_SUCCESS,
+        type: types.TASK_LIST_SUCCESS,
+        payload
+    }
+}
+
+export const TaskStatusRequest = (payload: any) => {
+    return {
+        type: types.TASK_STATUS_REQUEST,
+        payload
+    }
+}
+
+export const TaskStatusFailed = (payload: string[]) => {
+    return {
+        type: types.TASK_STATUS_FAILED,
+        payload
+    }
+}
+
+export const TaskStatusSuccess = (payload: string[]) => {
+    return {
+        type: types.TASK_STATUS_SUCCESS,
         payload
     }
 }

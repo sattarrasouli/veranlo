@@ -1,6 +1,9 @@
+import TaskListReducer from '../components/ListOfTasks/ListReducer'
+
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
 import { combineReducers } from 'redux';
+
 /**
  * 
  * @param history rootReducer to handle all reducers and send it to store via rootReducer.
@@ -8,4 +11,5 @@ import { combineReducers } from 'redux';
  */
 export const rootReducer = (history: History) => combineReducers({
     router: connectRouter(history),
+    TaskListReducer
 });
