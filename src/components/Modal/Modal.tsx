@@ -1,6 +1,5 @@
 import { Dispatch, Fragment, SetStateAction, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 export default function Modal({ openModal, setOpenModal, children }: { children: React.ReactNode, openModal: boolean, setOpenModal: Dispatch<SetStateAction<boolean>> }) {
 
@@ -20,7 +19,6 @@ export default function Modal({ openModal, setOpenModal, children }: { children:
                 >
                     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </Transition.Child>
-
                 <div className="fixed inset-0 z-10 overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child

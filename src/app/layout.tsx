@@ -1,5 +1,10 @@
 import './globals.css'
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Inter } from 'next/font/google'
+import { ToastContainer, toast } from 'react-toastify';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        <Provider store={store}>
+          <ToastContainer />
+          {children}
+        </Provider>
       </body>
     </html>
   )

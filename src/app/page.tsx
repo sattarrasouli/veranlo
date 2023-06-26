@@ -3,22 +3,20 @@ import { API } from '@/services/API'
 import { ChangeEvent, FormEvent, FormEventHandler, useEffect, useState } from 'react'
 import PlusIcon from '../assets/img/plus.png'
 import Image from 'next/image'
-import Modal from '@/components/modal'
-import AddTaskForm from '@/components/AddTaskForm'
+import Modal from '@/components/Modal/Modal'
+import AddTaskForm from '@/components/AddingNewTask/AddingTaskForm'
 
 export default function Home() {
 
   const [isComplete, setIsComplete] = useState<string>('')
   const [tasks, setTasks] = useState<string[]>([])
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
 
   console.log('tasks', tasks)
   useEffect(() => {
     API.get("/tasks").then((data: any) => setTasks(data.data))
     console.log("e")
   }, [])
-
-
 
 
   const handleStatus = (item: any) => {
