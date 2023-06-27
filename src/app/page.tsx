@@ -14,22 +14,14 @@ export default function Home() {
   const [isComplete, setIsComplete] = useState<string>('')
   const [tasks, setTasks] = useState<string[]>([])
   const [openModal, setOpenModal] = useState(false)
- 
-
-
-  const handleStatus = (item: any) => {
-    API.put(`/tasks/${item.id}`, { id: item.id, title: item.title, description: item.description, status: item.status === "done" ? 'notDone' : "done" })
-      .then((result: any) => console.log('result', result))
-  }
-
 
   return (
     <Provider store={store}>
       <main className="flex min-h-screen flex-col items-center justify-between">
 
-        <List />
+        <List setOpenModal={setOpenModal} />
         <Modal openModal={openModal} setOpenModal={setOpenModal} >
-          <AddTaskForm />
+          <AddTaskForm setOpenModal={setOpenModal} openModal={openModal} />
         </Modal>
       </main>
     </Provider>

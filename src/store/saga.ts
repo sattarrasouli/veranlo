@@ -1,4 +1,5 @@
-import { TaskListWatcher, TaskStatusWatcher } from '@/components/ListOfTasks/ListSaga'
+import { AddingTaskWatcher, EditingTaskWatcher } from '@/components/AddingNewTask/SagaAddingTasksForm'
+import { RemoveTaskWatcher, TaskListWatcher, TaskStatusWatcher } from '@/components/ListOfTasks/ListSaga'
 import { AllEffect, ForkEffect, all } from 'redux-saga/effects'
 /**
  * rootsaga handle all saga watcher and send it to store via rootsaga function,
@@ -6,6 +7,9 @@ import { AllEffect, ForkEffect, all } from 'redux-saga/effects'
 export default function* rootSaga(): Generator<AllEffect<Generator<ForkEffect<never>, void, unknown>>, void, unknown> {
     yield all([
         TaskListWatcher(),
-        TaskStatusWatcher()
+        TaskStatusWatcher(),
+        RemoveTaskWatcher(),
+        AddingTaskWatcher(),
+        EditingTaskWatcher()
     ])
 }

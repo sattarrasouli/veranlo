@@ -1,32 +1,49 @@
-import { API } from '@/services/API'
-import React, { useEffect, useState } from 'react'
 import PlusIcon from '@/assets/img/plus.png'
-import Image from 'next/image'
+import { EditTaskDataShareLocally, RemoveTaskRequest, TaskListRequest, TaskStatusRequest } from '@/store/action'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
-import { TaskListRequest, TaskStatusRequest } from '@/store/action'
+import { ITaskType } from '@/utils/Interfaces'
+import { AnyAction } from '@reduxjs/toolkit'
+import Image from 'next/image'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import DeleteIcon from '../../assets/img/delete.svg'
+import PencilIcon from '../../assets/img/pencil.svg'
+/**
+ * A List to diaplay each task including title, description and three button edit,remove, done.
+ * @param param0 setModal function to open the modal
+ * 
+ * @returns jsx -- a list show each task and three button delete,edit, done
+ */
 
-function List() {
 
-    const [isComplete, setIsComplete] = useState<string>('')
-    const [tasks, setTasks] = useState<string[]>([])
-    const [openModal, setOpenModal] = useState(false)
-    const [radioBtn, setRadioBtn] = useState<boolean>(false)
-    const dispatch = useAppDispatch()
-    const { data, isLoading, hasError, TaskStatusData } = useAppSelector((state) => state.TaskListReducer)
-    console.log('TaskStatusData', TaskStatusData)
+function List({ setOpenModal }: { setOpenModal: Dispatch<SetStateAction<boolean>> }) {
+
+    const dispatch: Dispatch<AnyAction> = useAppDispatch()
+    const { data, isLoading, hasError, TaskStatusData, RemoveTaskData } = useAppSelector((state) => state.TaskListReducer)
+
     useEffect(() => {
         dispatch(TaskListRequest(''))
-    }, [TaskStatusData])
+    }, [TaskStatusData, RemoveTaskData])
 
-    const handleStatus = (item: any) => {
-        console.log('item', item)
+    const handleStatus = (item: ITaskType) => {
         dispatch(TaskStatusRequest({ id: item.id, title: item.title, description: item.description, status: item.status === "true" ? 'false' : "true" }))
     }
 
+    const removeTask = (item: ITaskType) => {
+        dispatch(RemoveTaskRequest({ id: item.id }))
+    }
 
+    const EditTask = (item: ITaskType[]) => {
+        dispatch(EditTaskDataShareLocally(item))
+        setOpenModal(true)
+    }
+
+    const handleModal: () => void = () => {
+        setOpenModal(true)
+        dispatch(EditTaskDataShareLocally([]))
+    }
     return (
         <div className='w-full flex justify-center flex-col items-center'>
-            <h3 className='text-xl text-white mb-4'>All Tasks</h3>
+            <h3 className='text-xl text-white mt-10 mb-4'>My Tasks</h3>
             <div className='bg-white w-1/2 flex flex-col rounded-md shadow-lg shadow-gray-500/40 h-[80vh] relative'>
                 <div className='flex-grow overflow-y-scroll'>
                     {
@@ -36,14 +53,18 @@ function List() {
                                     <p className='text-l'>{item.title}</p>
                                     <p className='text-xs text-gray-400'>{item.description}</p>
                                 </div>
-                                <button></button>
+                                <button onClick={() => EditTask(item)}><Image className='w-[15px] mx-3' alt='edit' src={PencilIcon} /></button>
+                                <button onClick={() => removeTask(item)}><Image className='w-[15px] mx-3' alt='delete' src={DeleteIcon} /></button>
                                 <input onChange={() => handleStatus(item)} className='accent-green-700' type='radio' checked={item.status === "true" ? true : false} />
                             </div>
                         ))
                     }
+                    {
+                        data?.length === 0 && <p className='w-full text-center my-3'>No Task!</p>
+                    }
                 </div>
                 <div className='bottom-0 flex justify-center static rounded-xl w-[100%] bg-white opacity-80 '>
-                    <button onClick={() => setOpenModal(true)} ><Image className='w-[50px]' alt="plusIcon" src={PlusIcon} /></button>
+                    <button onClick={handleModal} ><Image className='w-[50px]' alt="plusIcon" src={PlusIcon} /></button>
                 </div>
             </div>
         </div>
