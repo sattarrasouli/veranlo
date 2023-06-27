@@ -1,5 +1,5 @@
 /**
- * redux action types (redux best practices) using in actions and reducers to trigger a action when user dispatch one of it
+ * redux action types (redux best practice) using in actions and reducers to trigger a action when user dispatch one of it
  */
 
 export const TASK_LIST_REQUEST: string = "TASK_LIST_REQUEST"

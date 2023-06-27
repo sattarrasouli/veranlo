@@ -15,7 +15,7 @@ import PencilIcon from '../../assets/img/pencil.svg'
  */
 
 
-function List({ setOpenModal }: { setOpenModal: Dispatch<SetStateAction<boolean>> }) {
+function List({ setOpenModal }: { setOpenModal: Dispatch<SetStateAction<boolean>> }): JSX.Element {
 
     const dispatch: Dispatch<AnyAction> = useAppDispatch()
     const { data, isLoading, hasError, TaskStatusData, RemoveTaskData } = useAppSelector((state) => state.TaskListReducer)

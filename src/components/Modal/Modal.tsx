@@ -1,9 +1,9 @@
-import { Dispatch, Fragment, SetStateAction, useRef, useState } from 'react'
+import { Dispatch, Fragment, MutableRefObject, SetStateAction, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-export default function Modal({ openModal, setOpenModal, children }: { children: React.ReactNode, openModal: boolean, setOpenModal: Dispatch<SetStateAction<boolean>> }) {
+export default function Modal({ openModal, setOpenModal, children }: { children: React.ReactNode, openModal: boolean, setOpenModal: Dispatch<SetStateAction<boolean>> }): JSX.Element {
 
-    const cancelButtonRef = useRef(null)
+    const cancelButtonRef: MutableRefObject<null> = useRef(null)
 
     return (
         <Transition.Root show={openModal} as={Fragment}>

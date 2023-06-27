@@ -1,4 +1,4 @@
-import { AddingTaskRequest, EditTaskDataShareLocally, EditingTaskRequest, TaskListRequest } from '@/store/action'
+import { AddingTaskRequest, EditingTaskRequest, TaskListRequest } from '@/store/action'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { AnyAction } from '@reduxjs/toolkit'
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react'
@@ -8,11 +8,12 @@ import { toast } from 'react-toastify'
  * @param param0 modal state and set funtion
  * @returns a form for both adding and editing
  */
-function AddTaskForm({ setOpenModal, openModal }: { openModal: boolean, setOpenModal: Dispatch<SetStateAction<boolean>> }) {
+function AddTaskForm({ setOpenModal, openModal }: { openModal: boolean, setOpenModal: Dispatch<SetStateAction<boolean>> }): JSX.Element {
+
     const { EditTaskDataLocally, EditingTaskData, data } = useAppSelector((state) => state.AddingTaskReducer)
 
-    const [title, setTitle] = useState<string>(EditTaskDataLocally?.payload?.title)
-    const [description, setDescription] = useState<string>(EditTaskDataLocally?.payload?.description)
+    const [title, setTitle] = useState<string>(EditTaskDataLocally?.payload?.title || '')
+    const [description, setDescription] = useState<string>(EditTaskDataLocally?.payload?.description || "")
     const dispatch: Dispatch<AnyAction> = useAppDispatch()
 
     useEffect(() => {
